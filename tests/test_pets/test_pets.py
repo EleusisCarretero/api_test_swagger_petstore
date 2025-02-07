@@ -12,4 +12,5 @@ class TestPetsUploadImages(BaseTestPets):
     def test_load_pet_image(self):
         new_perrito = "data\\perrito.png"
         response = self.client.update_pet_image(pet_id="2",new_image=new_perrito)
+        self.log.info(f"The current message content: {response.text}")
         assert response.status_code == 200

@@ -1,5 +1,8 @@
 import os
 import pytest
+from test_utils.logger_manager import LoggerManager
+from test_utils.config import Config
+
 
 def pytest_addoption(parser):
     """
@@ -7,10 +10,31 @@ def pytest_addoption(parser):
 
     device_name: Device name
     """
-    parser.addoption("--base_url", action="store", default=os.getenv("API_BASE_URL"), help="Base Pet store swagger url")
+    parser.addoption(
+        "--base_url",
+        action="store",
+        default=os.getenv("API_BASE_URL"),
+        help="Base Pet store swagger url"
+    )
+    parser.addoption(
+        "--log_folder",
+        action="store",
+        default="Logs",
+        help="Folder to store logs"
+    )
 
 
 @pytest.fixture(scope="session")
 def load_base_url(pytestconfig):
     base_url = pytestconfig.getoption("base_url")
     yield base_url
+
+
+@pytest.fixture(scope="session", autouse=True)
+def configure_logging(pytestconfig):
+    """
+    Fixture that setups the common logger.
+    """
+    log_folder = pytestconfig.getoption("log_folder")
+    Config.log_folder = log_folder
+    LoggerManager.setup_logger()
