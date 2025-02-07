@@ -1,4 +1,8 @@
 import requests
+from enum import Enum
+
+class ApiCodeStatus(int, Enum):
+    OK = 200
 
 
 class BaseApiClientError(Exception):

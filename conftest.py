@@ -2,6 +2,7 @@ import os
 import pytest
 from test_utils.logger_manager import LoggerManager
 from test_utils.config import Config
+from test_utils.result_manager import ResultManagerClass
 
 
 def pytest_addoption(parser):
@@ -38,3 +39,10 @@ def configure_logging(pytestconfig):
     log_folder = pytestconfig.getoption("log_folder")
     Config.log_folder = log_folder
     LoggerManager.setup_logger()
+
+@pytest.fixture(scope="class")
+def result():
+    """
+    Fixture to get the instance of ResultManagerClass, common in all tests.
+    """
+    return ResultManagerClass()

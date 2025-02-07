@@ -5,5 +5,5 @@ from tests.base_test import BaseTest
 class BaseTestPets(BaseTest):
     """
     """
-    def setup(self, load_base_url):
-        super().setup(load_base_url, PetClient, "pet")
+    def setup(self, load_base_url, result):
+        super().setup(load_base_url, PetClient, "pet", result)
