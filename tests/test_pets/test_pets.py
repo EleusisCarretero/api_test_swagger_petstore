@@ -1,12 +1,13 @@
-from src.pet_client import PetClient
+
 import pytest
+from tests.test_pets.base_test_pets import BaseTestPets
 
 
-class TestPets:
+class TestPetsUploadImages(BaseTestPets):
 
     @pytest.fixture(autouse=True)
     def setup(self):
-        self.client = PetClient(base_url="https://petstore.swagger.io/v2/pet")
+        super().setup()
 
     def test_load_pet_image(self):
         new_perrito = "data\\perrito.png"
