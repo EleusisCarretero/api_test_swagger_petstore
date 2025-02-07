@@ -6,8 +6,8 @@ from tests.test_pets.base_test_pets import BaseTestPets
 class TestPetsUploadImages(BaseTestPets):
 
     @pytest.fixture(autouse=True)
-    def setup(self):
-        super().setup()
+    def setup(self, load_base_url):
+        super().setup(load_base_url)
 
     def test_load_pet_image(self):
         new_perrito = "data\\perrito.png"
