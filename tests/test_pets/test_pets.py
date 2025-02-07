@@ -1,12 +1,7 @@
 import json
 import pytest
+from tests.base_test import get_test_data
 from tests.test_pets.base_test_pets import BaseTestPets
-
-
-def get_test_data(test_case):
-    with open("data\\test_inputs\\pets\\test_data.json", 'r') as json_file:
-        json_info = json.load(json_file).pop()
-    return [tuple(v for _, v in _tmp_dict.items()) for _tmp_dict in json_info.get(test_case)]
 
 
 class TestPetsUploadImages(BaseTestPets):
