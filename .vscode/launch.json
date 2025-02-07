@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/venv/Scripts/pytest.exe",
+            "args": [
+                "-v",
+                "tests",
+                // "tests\\calculator\\test_basic_operations.py::TestBasicOperations::test_bigger_that_units_numbers",
+                // "tests\\clock\\test_alarm.py::TestAlarm::test_dismiss_activated_alarm",
+                // "tests\\clock\\test_alarm.py",
+                "-s",
+                // "-m",
+                // "Camera and Smoke"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
