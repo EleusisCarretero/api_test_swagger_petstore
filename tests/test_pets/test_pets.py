@@ -3,6 +3,8 @@ import json
 import os
 import pytest
 from datetime import datetime, timezone
+
+import requests
 from src.base_api_client import ApiCodeStatus, BaseApiClientError
 from tests.base_test import get_test_data
 from tests.test_pets.base_test_pets import BaseTestPets
@@ -40,9 +42,8 @@ class TestPetsUploadImages(BaseTestPets):
             'Server': 'Jetty(9.2.9.v20150224)'
         }
         # 1. Check response
-        response = self.result.check_not_raises_any_given_exception(
+        response = self.result.check_not_raises_any_exception(
             method=self.client.update_pet_image,
-            exceptions=[BaseApiClientError],
             step_msg=f"Check image {new_image} has been POST without error to petID {pet_id}",
             pet_id=pet_id,
             new_image=new_image
@@ -64,3 +65,14 @@ class TestPetsUploadImages(BaseTestPets):
             actual_headers=response.headers,
             expected_headers=expected_headers
         )
+    
+    def test_load_empty_image(self):
+       
+        pet_id = 2
+        response = self.result.check_not_raises_any_exception(
+            method=self.client.update_pet_image,
+            step_msg=f"Check POST request without error to petID {pet_id}",
+            pet_id=pet_id,
+        )
+        self.log.info(response)
+
