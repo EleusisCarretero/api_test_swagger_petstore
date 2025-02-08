@@ -1,12 +1,15 @@
 import requests
 from enum import Enum
 
+
 class ApiCodeStatus(int, Enum):
     OK = 200
 
 
 class BaseApiClientError(Exception):
     """BaseApiClient Error class"""
+
+
 class BaseApiClient:
     """Base class in charge to manage api requests"""
     def __init__(self, base_url):
@@ -39,5 +42,4 @@ class BaseApiClient:
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as err:
-            print(f"HTTP Error: {err}, Response: {response.text}")
-            return None
+            raise BaseApiClientError(f"HTTP Error: {err}, Response: {response.text}")
