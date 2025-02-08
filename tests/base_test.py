@@ -22,6 +22,10 @@ class BaseTestError(Exception):
 class BaseTest:
     """
     Base test class
+    Attributes:
+        client(BaseApiClient): Type class which inherits from BaseApiClient and that helps as interface over the specific clients.
+        log(LoggerManager): it is an stance of logger.
+        result(ResultManagerClass): is is an instance to manage assertions and matches.
     """
     def setup(self, base_url: str,class_client:BaseApiClient, end_point:str, result):
         self.client = class_client(base_url=f"{base_url}/{end_point}")
