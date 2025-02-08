@@ -27,8 +27,11 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def load_base_url(pytestconfig):
+    """
+    Function to load the base url from the server
+    """
     base_url = pytestconfig.getoption("base_url")
-    yield base_url
+    return base_url
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -40,9 +43,10 @@ def configure_logging(pytestconfig):
     Config.log_folder = log_folder
     LoggerManager.setup_logger()
 
+
 @pytest.fixture(scope="class")
 def result():
     """
     Fixture to get the instance of ResultManagerClass, common in all tests.
     """
-    return ResultManagerClass()
+    return ResultManagerClass
