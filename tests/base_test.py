@@ -110,7 +110,16 @@ class BaseTest:
             assert self.result.step_status
     
     def _check_header_date(self, actual_header_value, expected_header_value, second_tol=1):
+        """
+        Internal check method to validate the 'Date' header is matching the expected values.
+        Considering overall that the time stamp could be differ for some value, for that 'second' is evaluated
+        with a tolerance.
 
+        Args:
+            actual_header_value(dict): Actual response requests header
+            expected_header_value(dict): Expected response requests header
+            second_tol(int/float): Seconds tolerance
+        """
         pattern = r'[:, ]+'
         actual_date_parts = re.split(pattern, actual_header_value)
         expected_date_parts = re.split(pattern, expected_header_value)
