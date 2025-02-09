@@ -1,17 +1,19 @@
-
+"""
+Test class file : Validates PetsUpload image relates validations
+"""
 import json
 import os
-import pytest
 from datetime import datetime, timezone
-
-import requests
-from src.base_api_client import ApiCodeStatus, BaseApiClientError
+import pytest
+from src.base_api_client import ApiCodeStatus
 from tests.base_test import get_test_data
 from tests.test_pets.base_test_pets import BaseTestPets
 
 
 class TestPetsUploadImages(BaseTestPets):
-
+    """
+    Pets test class to validate UploadImage related test cases
+    """
     @pytest.fixture(autouse=True)
     def setup(self, load_base_url, result):
         super().setup(load_base_url, result)
@@ -29,7 +31,8 @@ class TestPetsUploadImages(BaseTestPets):
             ped_id(str): Pet id
         """
         file_size = os.path.getsize(new_image)
-        expected_msg = f"additionalMetadata: null\nFile uploaded to ./{new_image.split("\\")[-1]}, {file_size} bytes"
+        expected_msg = \
+            f"additionalMetadata: null\nFile uploaded to ./{new_image.split("\\")[-1]}, {file_size} bytes"
         timestamp_gmt = datetime.now(timezone.utc)
         expected_headers = {
             'Date': timestamp_gmt.strftime("%a, %d-%m-%Y %H:%M:%S GMT"),
@@ -65,14 +68,36 @@ class TestPetsUploadImages(BaseTestPets):
             actual_headers=response.headers,
             expected_headers=expected_headers
         )
-    
+
     def test_load_empty_image(self):
-       
+        """
+        Method test-case to validate POST empty image
+        """
         pet_id = 2
+        timestamp_gmt = datetime.now(timezone.utc)
+        expected_headers = {
+            "access-control-allow-headers": "Content-Type,api_key,Authorization",
+            "access-control-allow-methods": "GET,POST,DELETE,PUT",
+            "access-control-allow-origin": "*",
+            "content-type": "application/json",
+            "date": timestamp_gmt.strftime("%a, %d-%m-%Y %H:%M:%S GMT"),
+            "server": "Jetty(9.2.9.v20150224)"
+        }
+        # 1. Check the POST request to upload the image is executed
         response = self.result.check_not_raises_any_exception(
             method=self.client.update_pet_image,
             step_msg=f"Check POST request without error to petID {pet_id}",
             pet_id=pet_id,
         )
         self.log.info(response)
+        # 2. Validate the status code
+        self.step_check_code_status(
+            actual_status=response.status_code,
+            expected_status=ApiCodeStatus.UNSUPPORTED_MEDIA_TYPE
+        )
+        # 3. Check header requests response
+        self.step_check_headers(
+            actual_headers=response.headers,
+            expected_headers=expected_headers
+        )
 
