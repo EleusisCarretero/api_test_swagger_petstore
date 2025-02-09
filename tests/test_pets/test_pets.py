@@ -5,6 +5,7 @@ import json
 import os
 from datetime import datetime, timezone
 import pytest
+from data.test_inputs.pets.schemas import POST_UPLOAD_IMAGE
 from src.base_api_client import ApiCodeStatus
 from tests.base_test import get_test_data
 from tests.test_pets.base_test_pets import BaseTestPets
@@ -51,19 +52,25 @@ class TestPetsUploadImages(BaseTestPets):
             pet_id=pet_id,
             new_image=new_image
         )
-        self.log.info(f"The current message content: {response.text}")
-        # 2. Check the correct status
+        response_body = json.loads(response.text)
+        self.log.info(f"The current message content: {response_body}")
+        # 2. Check response structure
+        self.step_check_response_body_structure(
+            response_body,
+            POST_UPLOAD_IMAGE
+        )
+        # 3. Check the correct status
         self.step_check_code_status(
             actual_status=response.status_code,
             expected_status=ApiCodeStatus.OK
         )
-        # 3. Check response message
-        actual_response_msg = json.loads(response.text)["message"]
+        # 4. Check response message
+        actual_response_msg = response_body["message"]
         self.step_check_message_response(
             actual_response_msg=actual_response_msg,
             expected_msg=expected_msg
         )
-        # 4. Check header requests response
+        # 5. Check header requests response
         self.step_check_headers(
             actual_headers=response.headers,
             expected_headers=expected_headers
@@ -91,13 +98,19 @@ class TestPetsUploadImages(BaseTestPets):
             step_msg=f"Check POST request without error to petID {pet_id}",
             pet_id=pet_id,
         )
-        self.log.info(response)
-        # 2. Validate the status code
+        response_body = json.loads(response.text)
+        self.log.info(f"The current message content: {response_body}")
+        # 2. Check response structure
+        self.step_check_response_body_structure(
+            response_body,
+            POST_UPLOAD_IMAGE
+        )
+        # 3. Validate the status code
         self.step_check_code_status(
             actual_status=response.status_code,
             expected_status=ApiCodeStatus.UNSUPPORTED_MEDIA_TYPE
         )
-        # 3. Check header requests response
+        # 4. Check header requests response
         self.step_check_headers(
             actual_headers=response.headers,
             expected_headers=expected_headers
@@ -138,19 +151,25 @@ class TestPetsUploadImages(BaseTestPets):
             pet_id=pet_id,
             new_image=new_image
         )
-        self.log.info(f"The current message content: {response.text}")
-         # 2. Check the expected status 400: Bad Request
+        response_body = json.loads(response.text)
+        self.log.info(f"The current message content: {response_body}")
+        # 2. Check response structure
+        self.step_check_response_body_structure(
+            response_body,
+            POST_UPLOAD_IMAGE
+        )
+         # 3. Check the expected status 400: Bad Request
         self.step_check_code_status(
             actual_status=response.status_code,
             expected_status=ApiCodeStatus.BAD_REQUEST
         )
-        # 3. Check response message
-        actual_response_msg = json.loads(response.text)["message"]
+        # 4. Check response message
+        actual_response_msg = response_body["message"]
         self.step_check_message_response(
             actual_response_msg=actual_response_msg,
             expected_msg=expected_msg
         )
-        # 4. Check header requests response
+        # 5. Check header requests response
         self.step_check_headers(
             actual_headers=response.headers,
             expected_headers=expected_headers

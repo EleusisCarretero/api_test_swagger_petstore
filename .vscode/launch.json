@@ -12,7 +12,7 @@
             "args": [
                 "-v",
                 "tests",
-                // "tests\\test_pets\\test_pets.py::TestPetsUploadImages::test_load_empty_image",
+                // "tests\\test_pets\\test_pets.py::TestPetsUploadImages::test_load_pet_image",
                 // "tests\\clock\\test_alarm.py::TestAlarm::test_dismiss_activated_alarm",
                 // "tests\\clock\\test_alarm.py",
                 "-s",
