@@ -49,4 +49,4 @@ def result():
     """
     Fixture to get the instance of ResultManagerClass, common in all tests.
     """
-    return ResultManagerClass
+    return ResultManagerClass()
