@@ -8,6 +8,7 @@ import requests
 class ApiCodeStatus(int, Enum):
     """Api requests response codes"""
     OK = 200
+    UNSUPPORTED_MEDIA_TYPE = 415
 
 
 class BaseApiClientError(Exception):
