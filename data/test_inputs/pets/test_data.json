@@ -14,6 +14,17 @@
                 "new_image": "data\\resources\\hamster.webp",
                 "pet_id": "4"
             }
+        ],
+        "test_invalid_image_format":
+        [
+            {
+                "new_image": "data\\resources\\pupy.txt",
+                "pet_id": "2"
+            },
+            {
+                "new_image": "data\\resources\\kitty.pdf",
+                "pet_id": "3"
+            }
         ]
     }
 ]

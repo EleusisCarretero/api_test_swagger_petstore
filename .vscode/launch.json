@@ -12,7 +12,7 @@
             "args": [
                 "-v",
                 "tests",
-                // "tests\\calculator\\test_basic_operations.py::TestBasicOperations::test_bigger_that_units_numbers",
+                // "tests\\test_pets\\test_pets.py::TestPetsUploadImages::test_load_empty_image",
                 // "tests\\clock\\test_alarm.py::TestAlarm::test_dismiss_activated_alarm",
                 // "tests\\clock\\test_alarm.py",
                 "-s",

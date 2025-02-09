@@ -8,6 +8,7 @@ import requests
 class ApiCodeStatus(int, Enum):
     """Api requests response codes"""
     OK = 200
+    BAD_REQUEST = 400
     UNSUPPORTED_MEDIA_TYPE = 415
 
 
