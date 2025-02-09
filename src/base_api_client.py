@@ -1,8 +1,12 @@
-import requests
+"""
+BaseApiClient class file and relates
+"""
 from enum import Enum
+import requests
 
 
 class ApiCodeStatus(int, Enum):
+    """Api requests response codes"""
     OK = 200
 
 
@@ -15,7 +19,7 @@ class BaseApiClient:
     def __init__(self, base_url):
         self.base_url = base_url
         self.session = requests.session()
-    
+
     def get(self, endpoint, **kwargs):
         """GET"""
         return self.session.get(url=f"{self.base_url}{endpoint}", **kwargs)
