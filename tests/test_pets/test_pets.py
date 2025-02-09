@@ -109,7 +109,14 @@ class TestPetsUploadImages(BaseTestPets):
             get_test_data("test_invalid_image_format")
     )
     def test_invalid_image_format(self, new_image, pet_id):
+        """
+        Method test-case to validate the /pet/{petId}/uploadImage endpoint response with
+        a 400 Bad Request when a wrong format of image is uploaded.
 
+        Args:
+            new_image(str): path to image to load
+            ped_id(str): Pet id
+        """
         file_size = os.path.getsize(new_image)
         expected_msg = \
             f"additionalMetadata: null\nFile uploaded to ./{new_image.split("\\")[-1]}, {file_size} bytes"

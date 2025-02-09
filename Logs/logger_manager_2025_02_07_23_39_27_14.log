@@ -1,6 +1,0 @@
-2025-02-07 23:39:32 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petstore.swagger.io:443
-2025-02-07 23:39:32 - urllib3.connectionpool - DEBUG - https://petstore.swagger.io:443 "POST /v2/pet/2/uploadImage HTTP/1.1" 415 None
-2025-02-07 23:39:32 - ResultManagerClass - INFO - PASSED - Check POST request without error to petID 2
-2025-02-07 23:39:40 - charset_normalizer - DEBUG - Encoding detection: utf_8 will be used as a fallback match
-2025-02-07 23:39:40 - charset_normalizer - DEBUG - Encoding detection: Found utf_8 as plausible (best-candidate) for content. With 0 alternatives.
-2025-02-07 23:39:47 - TestPetsUploadImages - INFO - <Response [415]>
