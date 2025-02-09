@@ -8,9 +8,18 @@ from test_utils.logger_manager import LoggerManager
 
 
 def get_test_data(test_case):
-    with open("data\\test_inputs\\pets\\test_data.json", 'r') as json_file:
+    """
+    Common method to load test data for specific test case from 'test_data.json'
+
+    Args:
+        test_case(str): Test case key name.
+
+    Returns
+        List: List of tuples with parametrized parameters for test cases
+    """
+    with open("data\\test_inputs\\pets\\test_data.json", 'r', encoding="utf-8") as json_file:
         json_info = json.load(json_file).pop()
-    return [tuple(v for _, v in _tmp_dict.items()) for _tmp_dict in json_info.get(test_case)]
+    return [tuple(v for _, v in tmp_dict.items()) for tmp_dict in json_info.get(test_case)]
 
 
 class BaseTestError(Exception):
