@@ -35,7 +35,7 @@ class TestPetsUploadImages(BaseTestPets):
             f"additionalMetadata: null\nFile uploaded to ./{new_image.split("\\")[-1]}, {file_size} bytes"
         timestamp_gmt = datetime.now(timezone.utc)
         expected_headers = {
-            'Date': timestamp_gmt.strftime("%a, %d-%m-%Y %H:%M:%S GMT"),
+            'Date': timestamp_gmt.strftime("%a, %d %b %Y %H:%M:%S GMT"),
             'Content-Type': 'application/json',
             'Transfer-Encoding': 'chunked',
             'Connection': 'keep-alive',
@@ -76,12 +76,14 @@ class TestPetsUploadImages(BaseTestPets):
         pet_id = 2
         timestamp_gmt = datetime.now(timezone.utc)
         expected_headers = {
-            "access-control-allow-headers": "Content-Type,api_key,Authorization",
-            "access-control-allow-methods": "GET,POST,DELETE,PUT",
-            "access-control-allow-origin": "*",
-            "content-type": "application/json",
-            "date": timestamp_gmt.strftime("%a, %d-%m-%Y %H:%M:%S GMT"),
-            "server": "Jetty(9.2.9.v20150224)"
+            "access-control-allow-headers": 'Content-Type, api_key, Authorization',
+            "access-control-allow-methods": 'GET, POST, DELETE, PUT',
+            "access-control-allow-origin": '*',
+            "content-type": 'application/json',
+            "Transfer-Encoding": 'chunked',
+            "Connection": 'keep-alive',
+            "date": timestamp_gmt.strftime("%a, %d %b %Y %H:%M:%S GMT"),
+            "server": 'Jetty(9.2.9.v20150224)'
         }
         # 1. Check the POST request to upload the image is executed
         response = self.result.check_not_raises_any_exception(

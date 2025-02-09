@@ -93,10 +93,20 @@ class BaseTest:
         # 2. Check the content of both dictionaries
         for key, expected_header_value in expected_headers.items():
             actual_header_value = actual_headers[key]
-            step_msg = f"Check the actual header {actual_header_value} vale is equal to the expected header {expected_header_value}"
-            self.log.info(step_msg)
-            self.result.check_equals_to(
-                actual_value=actual_header_value,
-                expected_value=expected_header_value,
-                step_msg=step_msg
-            )
+            if key != "Date":
+                step_msg = f"Check the actual header {actual_header_value} vale is equal to the expected header {expected_header_value}"
+                self.log.info(step_msg)
+                self.result.check_equals_to(
+                    actual_value=actual_header_value,
+                    expected_value=expected_header_value,
+                    step_msg=step_msg
+                )
+            else:
+                step_msg = f"Check the actual Date header {actual_header_value} is a value close to {expected_header_value}"
+                self.log.info(step_msg)
+                self.result.check_less_equals(
+                    actual_value=expected_header_value,
+                    expected_less_equals=actual_header_value,
+                    step_msg=step_msg
+                )
+            assert self.result.step_status
