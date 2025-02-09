@@ -1,6 +1,7 @@
 """
 Common base class file and common utils relates to it 
 """
+import re
 import json
 from typing import Union
 from src.base_api_client import ApiCodeStatus, BaseApiClient
@@ -102,11 +103,31 @@ class BaseTest:
                     step_msg=step_msg
                 )
             else:
-                step_msg = f"Check the actual Date header {actual_header_value} is a value close to {expected_header_value}"
-                self.log.info(step_msg)
-                self.result.check_less_equals(
-                    actual_value=expected_header_value,
-                    expected_less_equals=actual_header_value,
-                    step_msg=step_msg
+                self._check_header_date(
+                    actual_header_value=actual_header_value,
+                    expected_header_value=expected_header_value
                 )
             assert self.result.step_status
+    
+    def _check_header_date(self, actual_header_value, expected_header_value, second_tol=1):
+
+        pattern = r'[:, ]+'
+        actual_date_parts = re.split(pattern, actual_header_value)
+        expected_date_parts = re.split(pattern, expected_header_value)
+        step_msg = f"Check the actual Date header {actual_header_value} is a value close to {expected_header_value}"
+        self.log.info(step_msg)
+        i=0
+        for actual_part, expected_part in zip(actual_date_parts, expected_date_parts):
+            if i != 6:
+                self.result.check_equals_to(
+                    actual_value=actual_part,
+                    expected_value=expected_part,
+                    step_msg=f"Check {actual_part} is equals to {expected_part}"
+                )
+            else:
+                self.result.check_within_range(
+                    actual_value=int(actual_part),
+                    expected_value=int(expected_part),
+                    within_range=second_tol,
+                    step_msg=f"Check {actual_part} is within range of {expected_part} +/- second_tol")
+            i += 1
