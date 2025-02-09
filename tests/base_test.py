@@ -1,9 +1,11 @@
 """
 Common base class file and common utils relates to it 
 """
+from schema import Schema, SchemaError
 import re
 import json
 from typing import Union
+from data.test_inputs.pets import schemas
 from src.base_api_client import ApiCodeStatus, BaseApiClient
 from test_utils.logger_manager import LoggerManager
 
@@ -140,3 +142,27 @@ class BaseTest:
                     within_range=second_tol,
                     step_msg=f"Check {actual_part} is within range of {expected_part} +/- {second_tol}")
             i += 1
+
+    def step_check_response_body_structure(self, current_res_body:dict, expected_structure:Schema):
+        """
+        Step method to validate that the given response body has the expected structure
+
+        Args:
+            current_res_body(dict): Current response body from request
+            expected_structure(Schema): Expected response body structure
+        
+        Raises:
+            BaseTestError: In case the current response body does not matches with the expected schema
+        """
+        step_msg = f"Check the response {expected_structure} matches the expected scheme {current_res_body}"
+        self.log.info(step_msg)
+        self.result.check_not_raises_any_given_exception(
+            expected_structure.validate,
+            SchemaError,
+            f"Check the response {expected_structure} matches the expected scheme {current_res_body}",
+            current_res_body
+        )
+        assert self.result.step_status
+        if not self.result.step_status:
+            self.log.error(f"The response body: {current_res_body} does not matches in structure and/or types with the expected {expected_structure}")
+            raise BaseTestError("The current response body does not have the expected structure")
