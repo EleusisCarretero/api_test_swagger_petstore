@@ -1,0 +1,19 @@
+[
+    {
+        "test_load_pet_image": 
+        [
+            {
+                "new_image": "data\\resources\\pupy.png",
+                "pet_id": "2"
+            },
+            {
+                "new_image": "data\\resources\\kitty.avif",
+                "pet_id": "3"
+            },
+            {
+                "new_image": "data\\resources\\hamster.webp",
+                "pet_id": "4"
+            }
+        ]
+    }
+]

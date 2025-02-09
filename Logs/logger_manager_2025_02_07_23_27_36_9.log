@@ -1,0 +1,2 @@
+2025-02-07 23:27:50 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petstore.swagger.io:443
+2025-02-07 23:27:50 - urllib3.connectionpool - DEBUG - https://petstore.swagger.io:443 "POST /v2/pet/2/uploadImage HTTP/1.1" 415 None
