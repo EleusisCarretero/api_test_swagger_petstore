@@ -11,6 +11,7 @@ from tests.base_test import get_test_data
 from tests.test_pets.base_test_pets import BaseTestPets
 
 
+@pytest.mark.Pet
 class TestPetsUploadImages(BaseTestPets):
     """
     Pets test class to validate UploadImage related test cases
@@ -19,6 +20,7 @@ class TestPetsUploadImages(BaseTestPets):
     def setup(self, load_base_url, result):
         super().setup(load_base_url, result)
 
+    @pytest.mark.Smoke
     @pytest.mark.parametrize(
             ("new_image", "pet_id"),
             get_test_data("test_load_pet_image")
