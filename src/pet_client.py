@@ -20,3 +20,15 @@ class PetClient(BaseApiClient):
         if new_image:
             files = {"file": open(new_image , "rb")}
         return self.post(endpoint=f"/{pet_id}/uploadImage", files=files)
+
+    def get_pet_by_id(self, pet_id):
+        """
+        Method to return the pet information based on the PetId
+
+        Args:
+            pet_id(str): PetID
+        
+        Returns:
+            Dict: Returns the information related with the PetID
+        """
+        return self.get(endpoint=f"/{pet_id}")
