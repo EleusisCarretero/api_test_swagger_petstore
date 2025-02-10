@@ -25,20 +25,17 @@ class TestStoreStoreOrder(BaseTestStore):
             get_test_data("test_store_order")
     )
     def test_store_order(self, order_id, is_successfully):
-        def successful_error_code(is_valid):
-            return ApiCodeStatus.OK if is_valid else ApiCodeStatus.NOT_FOUND
-        # 1. Check response
-        response = self.result.check_not_raises_any_exception(
-            method=self.client.get_order,
-            step_msg=f"Check GET pet data by id {order_id} is executed successfully",
+        """
+        Method test case to validate the correct response format and status code
+        according to the existence of the given order_id
+        """
+        self.log.info(f"Input data. order_id {order_id}, is_successfully {is_successfully}")
+        def successful_error_code(is_successfully):
+            return ApiCodeStatus.OK if is_successfully else ApiCodeStatus.NOT_FOUND
+        # 1. Validate request execution as well as the response structure
+        self.step_check_response(
+            expected_schema=GetStoreORderID.get_successfully_error(is_successfully),
+            expected_code_status=successful_error_code(is_successfully),
+            callback_method=self.client.get_order,
             order_id=order_id
         )
-        response_body = json.loads(response.text)
-        self.log.info(f"The current message content: {response_body}")
-        # 2. Validate schema response in base if it a valid id or a invalid id
-        self.step_check_response_body_structure(
-            response_body,
-            GetStoreORderID.get_successfully_error(is_successfully)
-        )
-        self.log.info("Wait")
-

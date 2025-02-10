@@ -166,3 +166,42 @@ class BaseTest:
         if not self.result.step_status:
             self.log.error(f"The response body: {current_res_body} does not matches in structure and/or types with the expected {expected_structure}")
             raise BaseTestError("The current response body does not have the expected structure")
+
+    def step_check_response(self, expected_schema:Schema, expected_code_status:ApiCodeStatus, callback_method:callable, **kwargs):
+        """
+        Step function in charge to validate the request execution as well as to validate the response body
+        structure and the status code.
+
+        Args:
+            expected_schema(Schema): Expected schema structure to validate response body.
+            expected_code_status(ApiCodeStatus): Expected status code from the response.
+            callback_method(callable): Client method to execute request.
+            kwargs(dict): Optional arguments used by callback_method.
+        
+        Returns:
+            response:
+        
+        Raises:
+            BaseTestError: In case the response from request is 'None'.
+        """
+        # 1. Check request has been executed successfully and returns a response
+        response = self.result.check_not_raises_any_exception(
+            method=callback_method,
+            step_msg=f"Check GET/POST/PUT/DELETE {callback_method} method is successfully executed by using arguments {kwargs}",
+            **kwargs
+        )
+        if response is None:
+            raise BaseTestError("There is no valid response")
+        response_body = json.loads(response.text)
+        self.log.info(f"The current message content: {response_body}")
+        # 2. Validate the response body has the expected structure
+        self.step_check_response_body_structure(
+            response_body,
+            expected_schema
+        )
+        # 3. Check the correct status
+        self.step_check_code_status(
+            actual_status=response.status_code,
+            expected_status=expected_code_status
+        )
+        return response
