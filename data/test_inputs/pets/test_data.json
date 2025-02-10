@@ -36,6 +36,21 @@
                 "pet_id": "200",
                 "is_valid": false
             }
+        ],
+        "test_store_order":
+        [
+            {
+                "order_id": 10,
+                "is_successfully": true
+            },
+            {
+                "order_id": 1,
+                "is_successfully": true
+            },
+            {
+                "order_id": 100,
+                "is_successfully": false
+            }
         ]
     }
 ]
