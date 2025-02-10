@@ -35,21 +35,10 @@ class TestPetsGetPetId(BaseTestPets):
         def valid_invalid_code(is_valid):
             return ApiCodeStatus.OK if is_valid else ApiCodeStatus.NOT_FOUND
 
-        # 1. Check response
-        response = self.result.check_not_raises_any_exception(
-            method=self.client.get_pet_by_id,
-            step_msg=f"Check GET pet data by id {pet_id} is executed successfully",
-            pet_id=pet_id
-        )
-        response_body = json.loads(response.text)
-        self.log.info(f"The current message content: {response_body}")
-        # 2. Validate schema response in base if it a valid id or a invalid id
-        self.step_check_response_body_structure(
-            response_body,
-            GetPetIDSchemas.get_valid_invalid(is_valid)
-        )
-        # 3. Check the correct status
-        self.step_check_code_status(
-            actual_status=response.status_code,
-            expected_status=valid_invalid_code(is_valid)
+        # 1. Validate request execution as well as the response structure
+        self.step_check_response(
+            expected_schema=GetPetIDSchemas.get_valid_invalid(is_valid),
+            expected_code_status=valid_invalid_code(is_valid),
+            callback_method=self.client.get_pet_by_id,
+             pet_id=pet_id
         )
