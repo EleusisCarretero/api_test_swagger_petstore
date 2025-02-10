@@ -1,11 +1,8 @@
 """
 Test class file : Validates GET and POST /store/order
 """
-import json
-import os
-from datetime import datetime, timezone
 import pytest
-from data.test_inputs.pets.schemas import POST_UPLOAD_IMAGE, GetStoreORderID
+from data.test_inputs.pets.schemas import GetStoreORderID
 from src.base_api_client import ApiCodeStatus
 from tests.base_test import get_test_data
 from tests.test_store.base_test_store import BaseTestStore

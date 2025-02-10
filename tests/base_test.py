@@ -1,13 +1,12 @@
 """
 Common base class file and common utils relates to it 
 """
-from schema import Schema, SchemaError
 import re
 import json
 from typing import Union
-from data.test_inputs.pets import schemas
-from src.base_api_client import ApiCodeStatus, BaseApiClient
+from schema import Schema, SchemaError
 from test_utils.logger_manager import LoggerManager
+from src.base_api_client import ApiCodeStatus, BaseApiClient
 
 
 def get_test_data(test_case):

@@ -1,7 +1,6 @@
 """
 Test class file : Validates Get pet/{petId}
 """
-import json
 import pytest
 from data.test_inputs.pets.schemas import GetPetIDSchemas
 from src.base_api_client import ApiCodeStatus
