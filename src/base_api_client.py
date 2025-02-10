@@ -9,7 +9,9 @@ class ApiCodeStatus(int, Enum):
     """Api requests response codes"""
     OK = 200
     BAD_REQUEST = 400
+    NOT_FOUND = 404
     UNSUPPORTED_MEDIA_TYPE = 415
+
 
 
 class BaseApiClientError(Exception):

@@ -25,6 +25,17 @@
                 "new_image": "data\\resources\\kitty.pdf",
                 "pet_id": "3"
             }
+        ],
+        "test_get_pet_data":
+        [
+            {
+                "pet_id": "2",
+                "is_valid": true
+            },
+            {
+                "pet_id": "200",
+                "is_valid": false
+            }
         ]
     }
 ]
